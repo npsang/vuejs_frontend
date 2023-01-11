@@ -14,7 +14,9 @@
         <textarea class="form-control" aria-label="With textarea" style="width: 100%;height:100%; margin-top:0px"></textarea>
       </div>
     </div>
-    <div v-else class="card-body"><button type="button" class="btn btn-outline-primary" style="margin: 0;
+    <div v-else class="card-body">
+    <input type="file" id='fileid' @change="uploadFile" ref="file" hidden>
+    <button type="button" class="btn btn-outline-primary" @click="submitFile" style="margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -41,16 +43,40 @@
 
 <script>
 import UserService from "../services/user.service";
+import { ref } from 'vue'
 
 export default {
   name: "Home",
   data() {
     return {
+      images: null,
+ files : ref('file'),
       content: "",
       updateDoc: false,
     };
   },
+  watch:{
+   files(newFiles, oldFiles) {
+      console.log(newFiles, oldFiles)
+    } 
+  },
   methods: {
+    uploadFile() {
+        this.Images = this.$refs.file.files[0];
+        console.log(Image)
+        /*
+          const formData = new FormData();
+        formData.append('file', this.Images);
+        const headers = { 'Content-Type': 'multipart/form-data' };
+        axios.post('https://httpbin.org/post', formData, { headers }).then((res) => {
+          res.data.files; // binary representation of the file
+          res.status; // HTTP status
+        });
+        */
+      },
+      submitFile() {
+        document.getElementById('fileid').click()
+      },
     changeUpdate() {
       this.updateDoc = true;
     },

@@ -101,8 +101,7 @@ export default {
       this.loading = true;
 
       this.$store.dispatch("auth/register", user).then(
-        (data) => {
-          this.message = data.message;
+        () => {
           this.successful = true;
           this.loading = false;
         },
